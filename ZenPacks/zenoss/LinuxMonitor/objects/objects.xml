@@ -811,14 +811,6 @@ AVERAGE
 </object>
 </tomanycont>
 </object>
-<object id='/zport/dmd/Devices/Server/SSH/Linux/rrdTemplates/ethernetCsmacd' module='Products.ZenModel.RRDTemplate' class='RRDTemplate'>
-<property type="text" id="description" mode="w" >
-The SSH Ethernet interface template is available in the Enterprise version.
-</property>
-<property type="string" id="targetPythonClass" mode="w" >
-Products.ZenModel.IpInterface
-</property>
-</object>
 <!-- ('', 'zport', 'dmd', 'Devices', 'Server', 'SSH', 'Linux', 'rrdTemplates', 'FileSystem') -->
 <object id='/zport/dmd/Devices/Server/SSH/Linux/rrdTemplates/FileSystem' module='Products.ZenModel.RRDTemplate' class='RRDTemplate'>
 <property id='zendoc' type='string'>
@@ -838,14 +830,11 @@ COMMAND
 <property type="boolean" id="enabled" mode="w" >
 True
 </property>
-<property type="string" id="eventClass" mode="w" >
-/
-</property>
 <property type="int" id="severity" mode="w" >
 3
 </property>
 <property type="string" id="commandTemplate" mode="w" >
-/bin/df -kP
+/bin/df -kP ${here/mount}
 </property>
 <property type="int" id="cycletime" mode="w" >
 300
@@ -899,7 +888,7 @@ True
 3
 </property>
 <property type="string" id="commandTemplate" mode="w" >
-/bin/df -ikP
+/bin/df -ikP ${here/mount}
 </property>
 <property type="int" id="cycletime" mode="w" >
 300
@@ -997,7 +986,13 @@ True
 </object>
 </tomanycont>
 <tomanycont id='thresholds'>
-<object id='Greater than 90 percent used' module='Products.ZenModel.MinMaxThreshold' class='MinMaxThreshold'>
+<object id='critical disk usage' module='Products.ZenModel.MinMaxThreshold' class='MinMaxThreshold'>
+<property type="string" id="eventClass" mode="w" >
+/Perf/Filesystem
+</property>
+<property type="int" id="severity" mode="w" >
+5
+</property>
 <property label="DataPoints" type="lines" id="dsnames" mode="w" >
 ['disk_availBlocks']
 </property>
@@ -1005,13 +1000,27 @@ True
 True
 </property>
 <property type="string" id="minval" mode="w" >
-here.totalBlocks * 0.10
+here.totalBlocks * 0.01
 </property>
+<property type="int" id="escalateCount" mode="w" >
+0
+</property>
+</object>
+<object id='high disk usage' module='Products.ZenModel.MinMaxThreshold' class='MinMaxThreshold'>
 <property type="string" id="eventClass" mode="w" >
 /Perf/Filesystem
 </property>
 <property type="int" id="severity" mode="w" >
 3
+</property>
+<property label="DataPoints" type="lines" id="dsnames" mode="w" >
+['disk_availBlocks']
+</property>
+<property label="Enabled" type="boolean" id="enabled" mode="w" >
+True
+</property>
+<property type="string" id="minval" mode="w" >
+here.totalBlocks * 0.08
 </property>
 <property type="int" id="escalateCount" mode="w" >
 0
@@ -1048,20 +1057,9 @@ True
 0
 </property>
 <tomanycont id='graphPoints'>
-<object id='Greater than 90 percent used' module='Products.ZenModel.ThresholdGraphPoint' class='ThresholdGraphPoint'>
-<property type="long" id="sequence" mode="w" >
-0
-</property>
-<property type="string" id="threshId" mode="w" >
-Greater than 90 percent used
-</property>
-<property type="string" id="legend" mode="w" >
-${graphPoint/id}
-</property>
-</object>
 <object id='availBlocks' module='Products.ZenModel.DataPointGraphPoint' class='DataPointGraphPoint'>
 <property type="long" id="sequence" mode="w" >
-1
+2
 </property>
 <property select_variable="lineTypes" type="selection" id="lineType" mode="w" >
 AREA
@@ -1073,7 +1071,7 @@ AREA
 False
 </property>
 <property type="string" id="format" mode="w" >
-%5.2lf%%
+%5.2lf%s
 </property>
 <property type="string" id="legend" mode="w" >
 Used
@@ -1089,6 +1087,28 @@ disk_availBlocks
 </property>
 <property type="string" id="cFunc" mode="w" >
 AVERAGE
+</property>
+</object>
+<object id='critical disk usage' module='Products.ZenModel.ThresholdGraphPoint' class='ThresholdGraphPoint'>
+<property type="long" id="sequence" mode="w" >
+0
+</property>
+<property type="string" id="threshId" mode="w" >
+critical disk usage
+</property>
+<property type="string" id="legend" mode="w" >
+${graphPoint/id}
+</property>
+</object>
+<object id='high disk usage' module='Products.ZenModel.ThresholdGraphPoint' class='ThresholdGraphPoint'>
+<property type="long" id="sequence" mode="w" >
+1
+</property>
+<property type="string" id="threshId" mode="w" >
+high disk usage
+</property>
+<property type="string" id="legend" mode="w" >
+${graphPoint/id}
 </property>
 </object>
 </tomanycont>
@@ -1216,5 +1236,17 @@ AVERAGE
 </tomanycont>
 </object>
 </tomanycont>
+</object>
+<!-- ('', 'zport', 'dmd', 'Devices', 'Server', 'SSH', 'Linux', 'rrdTemplates', 'ethernetCsmacd') -->
+<object id='/zport/dmd/Devices/Server/SSH/Linux/rrdTemplates/ethernetCsmacd' module='Products.ZenModel.RRDTemplate' class='RRDTemplate'>
+<property id='zendoc' type='string'>
+The SSH Ethernet interface template is available in the Enterprise version.
+</property>
+<property type="text" id="description" mode="w" >
+The SSH Ethernet interface template is available in the Enterprise version.
+</property>
+<property type="string" id="targetPythonClass" mode="w" >
+Products.ZenModel.IpInterface
+</property>
 </object>
 </objects>
