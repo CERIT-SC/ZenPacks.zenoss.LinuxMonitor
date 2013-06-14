@@ -28,7 +28,7 @@ class df(CommandPlugin):
     deviceProperties = CommandPlugin.deviceProperties + (
       'zFileSystemMapIgnoreNames', 'zFileSystemMapIgnoreTypes')
 
-    oses = ['Linux', 'Darwin', 'SunOS', 'AIX']
+    oses = ['Linux']
 
     def condition(self, device, log):
         return device.os.uname == '' or device.os.uname in self.oses
