@@ -4,7 +4,7 @@
 # NB: PACKAGES is deprecated
 NAME = "ZenPacks.zenoss.LinuxMonitor"
 VERSION = "1.3.0"
-AUTHOR = "Zenoss"
+AUTHOR = "Zenoss, CERIT Scientific Cloud"
 LICENSE = ""
 NAMESPACE_PACKAGES = ['ZenPacks', 'ZenPacks.zenoss']
 PACKAGES = ['ZenPacks', 'ZenPacks.zenoss', 'ZenPacks.zenoss.LinuxMonitor']

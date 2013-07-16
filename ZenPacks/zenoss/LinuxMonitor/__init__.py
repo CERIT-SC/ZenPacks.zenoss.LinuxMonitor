@@ -21,6 +21,12 @@ if os.path.isdir(skinsDir):
     registerDirectory(skinsDir, globals())
 
 class ZenPack(ZenPackBase):
+    packZProperties = [
+        ('zThresholdMemoryCrit', 95, 'int'),
+        ('zThresholdSwapCrit', 90, 'int'),
+        ('zThresholdFilesystemLow', 90, 'int'),
+        ('zThresholdFilesystemCrit', 99, 'int'),
+        ]
     
     def install(self, app):
         """
@@ -30,7 +36,7 @@ class ZenPack(ZenPackBase):
         linux.setZenProperty( 'zCollectorPlugins', 
                               ['zenoss.cmd.uname',
                                'zenoss.cmd.uname_a',
-                               'zenoss.cmd.df',
+                               'CERIT_SC.cmd.linux.df',
                                'zenoss.cmd.linux.cpuinfo', 
                                'zenoss.cmd.linux.memory', 
                                'zenoss.cmd.linux.ifconfig', 

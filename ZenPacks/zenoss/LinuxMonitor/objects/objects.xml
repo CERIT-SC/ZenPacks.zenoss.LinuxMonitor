@@ -986,9 +986,9 @@ True
 </object>
 </tomanycont>
 <tomanycont id='thresholds'>
-<object id='critical disk usage' module='Products.ZenModel.MinMaxThreshold' class='MinMaxThreshold'>
+<object id='critical disk space' module='Products.ZenModel.MinMaxThreshold' class='MinMaxThreshold'>
 <property type="string" id="eventClass" mode="w" >
-/Perf/Filesystem
+/Perf/Filesystem/Linux/Critical
 </property>
 <property type="int" id="severity" mode="w" >
 5
@@ -1006,9 +1006,9 @@ here.totalBlocks * 0.01
 0
 </property>
 </object>
-<object id='high disk usage' module='Products.ZenModel.MinMaxThreshold' class='MinMaxThreshold'>
+<object id='low disk space' module='Products.ZenModel.MinMaxThreshold' class='MinMaxThreshold'>
 <property type="string" id="eventClass" mode="w" >
-/Perf/Filesystem
+/Perf/Filesystem/Linux/Warning
 </property>
 <property type="int" id="severity" mode="w" >
 3
@@ -1021,6 +1021,9 @@ True
 </property>
 <property type="string" id="minval" mode="w" >
 here.totalBlocks * 0.08
+</property>
+<property type="string" id="maxval" mode="w" >
+here.totalBlocks * 0.01 -1
 </property>
 <property type="int" id="escalateCount" mode="w" >
 0
@@ -1089,23 +1092,23 @@ disk_availBlocks
 AVERAGE
 </property>
 </object>
-<object id='critical disk usage' module='Products.ZenModel.ThresholdGraphPoint' class='ThresholdGraphPoint'>
+<object id='critical disk space' module='Products.ZenModel.ThresholdGraphPoint' class='ThresholdGraphPoint'>
 <property type="long" id="sequence" mode="w" >
 0
 </property>
 <property type="string" id="threshId" mode="w" >
-critical disk usage
+critical disk space
 </property>
 <property type="string" id="legend" mode="w" >
 ${graphPoint/id}
 </property>
 </object>
-<object id='high disk usage' module='Products.ZenModel.ThresholdGraphPoint' class='ThresholdGraphPoint'>
+<object id='low disk space' module='Products.ZenModel.ThresholdGraphPoint' class='ThresholdGraphPoint'>
 <property type="long" id="sequence" mode="w" >
 1
 </property>
 <property type="string" id="threshId" mode="w" >
-high disk usage
+low disk space
 </property>
 <property type="string" id="legend" mode="w" >
 ${graphPoint/id}
@@ -1248,5 +1251,49 @@ The SSH Ethernet interface template is available in the Enterprise version.
 <property type="string" id="targetPythonClass" mode="w" >
 Products.ZenModel.IpInterface
 </property>
+</object>
+<!-- ('', 'zport', 'dmd', 'Events', 'Perf', 'Filesystem', 'Linux') -->
+<object id='/zport/dmd/Events/Perf/Filesystem/Linux' module='Products.ZenEvents.EventClass' class='EventClass'>
+<property type="text" id="transform" mode="w" >
+if device and evt.eventKey:
+    for f in device.os.filesystems():
+        if f.name() != evt.component and f.id != evt.component: continue
+
+        # Extract the used blocks from the event's message
+        import re
+        m = re.search("threshold of [^:]+: current value ([\d\.]+)", evt.message)
+        if not m: continue
+
+        # Get the total blocks from the model. Adjust by specified offset.
+        totalBlocks = f.totalBlocks * getattr(device, "zFileSystemSizeOffset", 1.0)
+        totalBytes = totalBlocks * f.blockSize
+        usedBytes = None
+
+        currentValue = float(m.groups()[0])
+        if 'availBlocks' in evt.eventKey:
+            availBytes = currentValue * f.blockSize
+        else:
+            continue
+
+        try:
+            # Calculate the used percent and amount free.
+            p = (totalBytes-availBytes)*100 / totalBytes
+            from Products.ZenUtils.Utils import convToUnits
+            free = convToUnits(availBytes)
+            # Make a nicer summary
+            evt.summary = "disk space threshold: %3.1f%% used (%s free)" % (p, free)
+            evt.message = evt.summary
+        except ZeroDivisionError, e:
+            # Total size hasn't been calculated
+            pass
+
+        break
+</property>
+<object id='Critical' module='Products.ZenEvents.EventClass' class='EventClass'>
+</object>
+<object id='Error' module='Products.ZenEvents.EventClass' class='EventClass'>
+</object>
+<object id='Warning' module='Products.ZenEvents.EventClass' class='EventClass'>
+</object>
 </object>
 </objects>
