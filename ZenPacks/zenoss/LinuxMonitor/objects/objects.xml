@@ -525,7 +525,7 @@ len(here.hw.cpus()) * (here.zThresholdLoadOffset or 1.3)
 </object>
 <object id='low memory' module='Products.ZenModel.MinMaxThreshold' class='MinMaxThreshold'>
 <property type="string" id="eventClass" mode="w" >
-/Perf/Memory
+/Perf/Memory/Linux
 </property>
 <property type="int" id="severity" mode="w" >
 4
@@ -545,7 +545,7 @@ here.hw.totalMemory * (here.zThresholdMemoryCrit / 100.0)
 </object>
 <object id='low swap' module='Products.ZenModel.MinMaxThreshold' class='MinMaxThreshold'>
 <property type="string" id="eventClass" mode="w" >
-/Perf/Memory
+/Perf/Memory/Linux
 </property>
 <property type="int" id="severity" mode="w" >
 4
@@ -1600,5 +1600,40 @@ if device and evt.eventKey:
 </object>
 <object id='Warning' module='Products.ZenEvents.EventClass' class='EventClass'>
 </object>
+</object>
+<!-- ('', 'zport', 'dmd', 'Events', 'Perf', 'Memory', 'Linux') -->
+<object id='/zport/dmd/Events/Perf/Memory/Linux' module='Products.ZenEvents.EventClass' class='EventClass'>
+<property type="text" id="transform" mode="w" >
+import re
+m = re.search("threshold of [^:]+: current value ([\d\.]+)", evt.message)
+
+if device and evt.eventKey and m:
+    currentValue = float(m.groups()[0])
+    name = None
+    usedBytes = None
+    totalBytes = None
+
+    if 'mem_MemAllocated' in evt.eventKey:
+        name = 'memory'
+        totalBytes = device.hw.totalMemory
+        usedBytes = currentValue
+    elif 'mem_SwapAllocated' in evt.eventKey:
+        name = 'swap'
+        totalBytes = device.os.totalSwap
+        usedBytes = currentValue
+
+    if name is not None:
+        try:
+            # Calculate the used percent and amount free.
+            p = (usedBytes / totalBytes) * 100
+            from Products.ZenUtils.Utils import convToUnits
+            free = convToUnits(totalBytes - usedBytes)
+            # Make a nicer summary
+            evt.summary = "%s threshold: %3.1f%% used (%s free)" % (name, p, free)
+            evt.message = evt.summary
+        except ZeroDivisionError, e:
+            # Total size hasn't been calculated
+            pass
+</property>
 </object>
 </objects>
