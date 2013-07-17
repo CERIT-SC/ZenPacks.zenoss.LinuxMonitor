@@ -830,6 +830,9 @@ COMMAND
 <property type="boolean" id="enabled" mode="w" >
 True
 </property>
+<property type="string" id="eventClass" mode="w" >
+/Cmd/Fail
+</property>
 <property type="int" id="severity" mode="w" >
 3
 </property>
@@ -1000,7 +1003,7 @@ True
 True
 </property>
 <property type="string" id="minval" mode="w" >
-here.totalBlocks * 0.01
+here.totalBlocks * ((100-here.zThresholdFilesystemCrit)/100.0)
 </property>
 <property type="int" id="escalateCount" mode="w" >
 0
@@ -1020,10 +1023,10 @@ here.totalBlocks * 0.01
 True
 </property>
 <property type="string" id="minval" mode="w" >
-here.totalBlocks * 0.08
+here.totalBlocks * ((100-here.zThresholdFilesystemLow)/100.0)
 </property>
 <property type="string" id="maxval" mode="w" >
-here.totalBlocks * 0.01 -1
+here.totalBlocks * ((100-here.zThresholdFilesystemCrit)/100.0) -1
 </property>
 <property type="int" id="escalateCount" mode="w" >
 0
