@@ -36,7 +36,7 @@ class ZenPack(ZenPackBase):
         linux.setZenProperty( 'zCollectorPlugins', 
                               ['zenoss.cmd.uname',
                                'zenoss.cmd.uname_a',
-                               'CERIT_SC.cmd.linux.df',
+                               'community.cmd.linux.df',
                                'zenoss.cmd.linux.cpuinfo', 
                                'zenoss.cmd.linux.memory', 
                                'zenoss.cmd.linux.ifconfig', 
