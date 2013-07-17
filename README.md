@@ -7,8 +7,8 @@ for advanced Linux monitoring **based on original Zenoss Core**
 [LinuxMonitor](https://github.com/zenoss/ZenPacks.zenoss.LinuxMonitor) plugin.
 Features:
 
-* NEW: system load graph
-* memory and swap utilization graphs with allocated space
+* **NEW:** system load graph
+* improved memory and swap utilization graphs with allocated space
 * filesystem two-level thresholds and support for `zFileSystemMapIgnoreTypes`
 
 ## Installation
