@@ -26,6 +26,7 @@ class ZenPack(ZenPackBase):
         ('zThresholdSwapCrit', 90, 'int'),
         ('zThresholdFilesystemLow', 90, 'int'),
         ('zThresholdFilesystemCrit', 99, 'int'),
+        ('zThresholdLoadOffset', 1.3, 'float'),
         ]
     
     def install(self, app):
