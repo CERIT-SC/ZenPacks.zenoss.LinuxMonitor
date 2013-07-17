@@ -29,7 +29,9 @@ class cpu(CommandParser):
                    'ssCpuWait',
                    'ssCpuInterrupt',
                    'ssCpuSoftInterrupt',
-                   'ssCpuSteal']
+                   'ssCpuSteal',
+                   'ssCpuGuest',
+                   'ssCpuGuestNice']
                    
             values = cmd.result.output.splitlines()[0].split()[1:]
             valueMap = dict(zip(ids, values))

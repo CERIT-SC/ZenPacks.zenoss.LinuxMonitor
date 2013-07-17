@@ -38,6 +38,22 @@ True
 ZenPacks.zenoss.LinuxMonitor.parsers.linux.cpu
 </property>
 <tomanycont id='datapoints'>
+<object id='ssCpuGuest' module='Products.ZenModel.RRDDataPoint' class='RRDDataPoint'>
+<property select_variable="rrdtypes" type="selection" id="rrdtype" mode="w" >
+DERIVE
+</property>
+<property type="boolean" id="isrow" mode="w" >
+True
+</property>
+</object>
+<object id='ssCpuGuestNice' module='Products.ZenModel.RRDDataPoint' class='RRDDataPoint'>
+<property select_variable="rrdtypes" type="selection" id="rrdtype" mode="w" >
+DERIVE
+</property>
+<property type="boolean" id="isrow" mode="w" >
+True
+</property>
+</object>
 <object id='ssCpuIdle' module='Products.ZenModel.RRDDataPoint' class='RRDDataPoint'>
 <property select_variable="rrdtypes" type="selection" id="rrdtype" mode="w" >
 DERIVE
@@ -70,6 +86,22 @@ True
 </property>
 </object>
 <object id='ssCpuNice' module='Products.ZenModel.RRDDataPoint' class='RRDDataPoint'>
+<property select_variable="rrdtypes" type="selection" id="rrdtype" mode="w" >
+DERIVE
+</property>
+<property type="boolean" id="isrow" mode="w" >
+True
+</property>
+</object>
+<object id='ssCpuSoftInterrupt' module='Products.ZenModel.RRDDataPoint' class='RRDDataPoint'>
+<property select_variable="rrdtypes" type="selection" id="rrdtype" mode="w" >
+DERIVE
+</property>
+<property type="boolean" id="isrow" mode="w" >
+True
+</property>
+</object>
+<object id='ssCpuSteal' module='Products.ZenModel.RRDDataPoint' class='RRDDataPoint'>
 <property select_variable="rrdtypes" type="selection" id="rrdtype" mode="w" >
 DERIVE
 </property>
@@ -596,7 +628,7 @@ True
 <tomanycont id='graphPoints'>
 <object id='ssCpuIdle' module='Products.ZenModel.DataPointGraphPoint' class='DataPointGraphPoint'>
 <property type="long" id="sequence" mode="w" >
-3
+7
 </property>
 <property type="string" id="color" mode="w" >
 CCCCCC
@@ -608,7 +640,7 @@ AREA
 1
 </property>
 <property type="boolean" id="stacked" mode="w" >
-False
+True
 </property>
 <property type="string" id="format" mode="w" >
 %5.1lf%%
@@ -621,6 +653,122 @@ Idle
 </property>
 <property type="string" id="dpName" mode="w" >
 cpu_ssCpuIdle
+</property>
+<property type="string" id="cFunc" mode="w" >
+AVERAGE
+</property>
+</object>
+<object id='ssCpuInterrupt' module='Products.ZenModel.DataPointGraphPoint' class='DataPointGraphPoint'>
+<property type="long" id="sequence" mode="w" >
+6
+</property>
+<property select_variable="lineTypes" type="selection" id="lineType" mode="w" >
+AREA
+</property>
+<property type="long" id="lineWidth" mode="w" >
+1
+</property>
+<property type="boolean" id="stacked" mode="w" >
+True
+</property>
+<property type="string" id="format" mode="w" >
+%5.1lf%%
+</property>
+<property type="string" id="legend" mode="w" >
+IRQ
+</property>
+<property type="long" id="limit" mode="w" >
+-1
+</property>
+<property type="string" id="dpName" mode="w" >
+cpu_ssCpuInterrupt
+</property>
+<property type="string" id="cFunc" mode="w" >
+AVERAGE
+</property>
+</object>
+<object id='ssCpuNice' module='Products.ZenModel.DataPointGraphPoint' class='DataPointGraphPoint'>
+<property type="long" id="sequence" mode="w" >
+2
+</property>
+<property select_variable="lineTypes" type="selection" id="lineType" mode="w" >
+AREA
+</property>
+<property type="long" id="lineWidth" mode="w" >
+1
+</property>
+<property type="boolean" id="stacked" mode="w" >
+True
+</property>
+<property type="string" id="format" mode="w" >
+%5.1lf%%
+</property>
+<property type="string" id="legend" mode="w" >
+Nice
+</property>
+<property type="long" id="limit" mode="w" >
+-1
+</property>
+<property type="string" id="dpName" mode="w" >
+cpu_ssCpuNice
+</property>
+<property type="string" id="cFunc" mode="w" >
+AVERAGE
+</property>
+</object>
+<object id='ssCpuSoftInterrupt' module='Products.ZenModel.DataPointGraphPoint' class='DataPointGraphPoint'>
+<property type="long" id="sequence" mode="w" >
+5
+</property>
+<property select_variable="lineTypes" type="selection" id="lineType" mode="w" >
+AREA
+</property>
+<property type="long" id="lineWidth" mode="w" >
+1
+</property>
+<property type="boolean" id="stacked" mode="w" >
+True
+</property>
+<property type="string" id="format" mode="w" >
+%5.1lf%%
+</property>
+<property type="string" id="legend" mode="w" >
+SoftIRQ
+</property>
+<property type="long" id="limit" mode="w" >
+-1
+</property>
+<property type="string" id="dpName" mode="w" >
+cpu_ssCpuSoftInterrupt
+</property>
+<property type="string" id="cFunc" mode="w" >
+AVERAGE
+</property>
+</object>
+<object id='ssCpuSteal' module='Products.ZenModel.DataPointGraphPoint' class='DataPointGraphPoint'>
+<property type="long" id="sequence" mode="w" >
+4
+</property>
+<property select_variable="lineTypes" type="selection" id="lineType" mode="w" >
+AREA
+</property>
+<property type="long" id="lineWidth" mode="w" >
+1
+</property>
+<property type="boolean" id="stacked" mode="w" >
+True
+</property>
+<property type="string" id="format" mode="w" >
+%5.1lf%%
+</property>
+<property type="string" id="legend" mode="w" >
+Steal
+</property>
+<property type="long" id="limit" mode="w" >
+-1
+</property>
+<property type="string" id="dpName" mode="w" >
+cpu_ssCpuSteal
 </property>
 <property type="string" id="cFunc" mode="w" >
 AVERAGE
@@ -686,16 +834,16 @@ AVERAGE
 </object>
 <object id='ssCpuWait' module='Products.ZenModel.DataPointGraphPoint' class='DataPointGraphPoint'>
 <property type="long" id="sequence" mode="w" >
-2
+3
 </property>
 <property select_variable="lineTypes" type="selection" id="lineType" mode="w" >
-LINE
+AREA
 </property>
 <property type="long" id="lineWidth" mode="w" >
 1
 </property>
 <property type="boolean" id="stacked" mode="w" >
-False
+True
 </property>
 <property type="string" id="format" mode="w" >
 %5.1lf%%
