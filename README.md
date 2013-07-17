@@ -8,7 +8,7 @@ for advanced Linux monitoring **based on original Zenoss Core**
 Features:
 
 * **NEW:** system load graph
-* improved memory and swap utilization graphs with allocated space
+* improved memory and swap utilization graphs with allocated space with human readable threshold event texts
 * filesystem two-level thresholds and support for `zFileSystemMapIgnoreTypes`
 
 ## Installation
