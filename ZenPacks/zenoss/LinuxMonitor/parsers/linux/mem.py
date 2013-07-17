@@ -24,15 +24,30 @@ class mem(CommandParser):
         """
         datapointMap = dict([(dp.id, dp) for dp in cmd.points])
         data = [line.split(':', 1) for line in cmd.result.output.splitlines()]
+        dataMap = dict()
         
         for id, vals in data:
+            try:
+                value, unit = vals.strip().split()
+            except:
+                value = vals
+                unit = 1
+            size = int(value) * MULTIPLIER.get(unit, 1)
+            dataMap[id]=size
+
+        # count additional data
+        if ('MemTotal' in dataMap) and ('MemFree' in dataMap) and \
+                ('Buffers' in dataMap) and ('Cached' in dataMap):
+            dataMap['MemAllocated']=dataMap['MemTotal'] \
+                - dataMap['MemFree'] \
+                - dataMap['Buffers'] \
+                - dataMap['Cached'] \
+
+        if ('SwapTotal' in dataMap) and ('SwapFree' in dataMap):
+            dataMap['SwapAllocated']=dataMap['SwapTotal']-dataMap['SwapFree']
+
+        for id,size in dataMap.items():
             if id in datapointMap:
-                try:
-                    value, unit = vals.strip().split()
-                except:
-                    value = vals
-                    unit = 1
-                size = int(value) * MULTIPLIER.get(unit, 1)
                 result.values.append((datapointMap[id], size))
         
         return result
