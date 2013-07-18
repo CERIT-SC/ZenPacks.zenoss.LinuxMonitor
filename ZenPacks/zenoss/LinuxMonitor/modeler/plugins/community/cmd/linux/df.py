@@ -40,7 +40,9 @@ class df(CommandPlugin):
         skipfstypes = getattr(device, 'zFileSystemMapIgnoreTypes', None)
         rm = self.relMap()
         rlines = results.split("\n")
+        rlines.reverse() # start with latest mounts
         bline = ""
+        processed = []
         for line in rlines:
             if line.startswith("Filesystem"): continue
             om = self.objectMap()
@@ -53,6 +55,9 @@ class df(CommandPlugin):
                 bline = None
             if len(spline) != 7: continue
             (om.storageDevice, fs, tblocks, u, a, p, om.mount) = spline
+
+            # process only one filesystem per mountpoint
+            if om.mount in processed: continue
 
             if re.search('^(root|[xj]|btr|reiser)fs|ext[234]$',fs):
                 om.type = "fixedDisk"
@@ -90,5 +95,6 @@ class df(CommandPlugin):
             om.blockSize = 1024
             om.id = self.prepId(om.mount)
             om.title = om.mount
+            processed.append(om.mount)
             rm.append(om)
         return rm
