@@ -28,6 +28,8 @@ Features:
 * improved CPU utilization graph
   * show time spent in nice, I/O wait, steal, IRQ, soft IRQ
   * all graph points are now stacked area
+* improved network interfaces monitoring
+  * **NEW:** inherited community.cmd.linux.ifconfig supress error messages
 
 ## Installation
 
