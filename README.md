@@ -11,15 +11,17 @@ Features:
 * **NEW:** system load graph
 * **NEW:** total system disk I/O activity graph
 * **NEW:** modeler community.cmd.linux.lbs_release to get OS name/version
-* **NEW:** modeler community.cmd.linux.dmidecode_system to get hardware
+* **NEW:** modeler community.cmd.linux.dmidecode to get hardware
  * name and manufacturer
  * serial number
  * tag (SKU Number)
+ * rack chassis size
 * improved memory and swap utilization graphs
   * graph allocated space
   * nice event texts (e.g.: `memory threshold: 97.0% used (3.8GB free)`)
 * improved filesystem monitoring
   * per filesystem monitoring to avoid hangups on e.g. NFS problems
+  * model only last filesystem mounted on each mount point
   * two-level thresholds (warning, critical)
   * nice event texts (e.g.: `disk space threshold: 99.3% used (1.7MB free)`)
   * support for `zFileSystemMapIgnoreTypes`

@@ -624,7 +624,7 @@ here.hw.totalMemory * (here.zThresholdMemoryCrit / 100.0)
 /Perf/Memory/Linux
 </property>
 <property type="int" id="severity" mode="w" >
-4
+5
 </property>
 <property label="DataPoints" type="lines" id="dsnames" mode="w" >
 ['mem_SwapAllocated']

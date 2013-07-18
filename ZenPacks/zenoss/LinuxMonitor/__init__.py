@@ -45,7 +45,7 @@ class ZenPack(ZenPackBase):
                                'zenoss.cmd.linux.process',
                                'community.cmd.linux.df',
                                'community.cmd.linux.lsb_release',
-                               'community.cmd.linux.dmidecode_system' ] ) 
+                               'community.cmd.linux.dmidecode' ] ) 
         
         linux.register_devtype('Linux Server', 'SSH')
         ZenPackBase.install(self, app)
