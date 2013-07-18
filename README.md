@@ -9,6 +9,7 @@ for advanced Linux monitoring **based on original Zenoss Core's**
 Features:
 
 * **NEW:** system load graph
+* **NEW:** total system disk I/O activity graph
 * improved memory and swap utilization graphs
   * graph allocated space
   * nice event texts (e.g.: `memory threshold: 97.0% used (3.8GB free)`)
