@@ -7,6 +7,11 @@ class dmidecode_system(DMICommandPlugin):
     compname = ""
     command  = 'sudo -n /usr/sbin/dmidecode --type 1'
 
+    def check_number(self, v):
+        return (not v in (None,'','Not Specified') and \
+            v.find('O.E.M.')<0 and \
+            v.find('123456')<0)
+
     def process(self, device, results, log):
         """Collect command-line information from this device"""
         log.info("Processing the dmidecode system info for device %s" % device.id)
@@ -16,13 +21,13 @@ class dmidecode_system(DMICommandPlugin):
 
             # set only valid S/N
             sn=system[0].get('Serial Number',None)
-            if not sn in (None,'Not Specified','1234567890',''):
+            if self.check_number(sn):
                 om.setHWSerialNumber=sn
                 log.debug("setHWSerialNumber=%s" % (om.setHWSerialNumber))
 
             # set only valid Tag
             tag=system[0].get('SKU Number',None)
-            if not tag in (None,'Not Specified','1234567890',''):
+            if self.check_number(tag):
                 om.setHWTag=tag
                 log.debug("setHWTag=%s" % (om.setHWTag))
 
