@@ -10,6 +10,11 @@ Features:
 
 * **NEW:** system load graph
 * **NEW:** total system disk I/O activity graph
+* **NEW:** modeler community.cmd.linux.lbs_release to get OS name/version
+* **NEW:** modeler community.cmd.linux.dmidecode_system to get hardware
+ * name and manufacturer
+ * serial number
+ * tag (SKU Number)
 * improved memory and swap utilization graphs
   * graph allocated space
   * nice event texts (e.g.: `memory threshold: 97.0% used (3.8GB free)`)

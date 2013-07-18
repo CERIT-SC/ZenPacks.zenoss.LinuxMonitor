@@ -23,7 +23,7 @@ if os.path.isdir(skinsDir):
 class ZenPack(ZenPackBase):
     packZProperties = [
         ('zThresholdMemoryCrit', 95, 'int'),
-        ('zThresholdSwapCrit', 90, 'int'),
+        ('zThresholdSwapCrit', 85, 'int'),
         ('zThresholdFilesystemLow', 90, 'int'),
         ('zThresholdFilesystemCrit', 99, 'int'),
         ('zThresholdLoadOffset', 1.3, 'float'),
@@ -37,13 +37,15 @@ class ZenPack(ZenPackBase):
         linux.setZenProperty( 'zCollectorPlugins', 
                               ['zenoss.cmd.uname',
                                'zenoss.cmd.uname_a',
-                               'community.cmd.linux.df',
                                'zenoss.cmd.linux.cpuinfo', 
                                'zenoss.cmd.linux.memory', 
                                'zenoss.cmd.linux.ifconfig', 
                                'zenoss.cmd.linux.netstat_an', 
                                'zenoss.cmd.linux.netstat_rn', 
-                               'zenoss.cmd.linux.process' ] ) 
+                               'zenoss.cmd.linux.process',
+                               'community.cmd.linux.df',
+                               'community.cmd.linux.lsb_release',
+                               'community.cmd.linux.dmidecode_system' ] ) 
         
         linux.register_devtype('Linux Server', 'SSH')
         ZenPackBase.install(self, app)
