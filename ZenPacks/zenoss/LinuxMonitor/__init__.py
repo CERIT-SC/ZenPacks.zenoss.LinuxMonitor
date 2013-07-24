@@ -46,7 +46,9 @@ class ZenPack(ZenPackBase):
                                'community.cmd.linux.df',
                                'community.cmd.linux.lsb_release',
                                'community.cmd.linux.dmidecode',
-                               'community.cmd.linux.mdstat' ] ) 
+                               'community.cmd.linux.mdstat',
+                               'community.cmd.linux.sw.dpkg',
+                               'community.cmd.linux.sw.rpm' ] ) 
         
         linux.register_devtype('Linux Server', 'SSH')
         ZenPackBase.install(self, app)

@@ -3,7 +3,7 @@
 # or saved.  Do not modify them directly here.
 # NB: PACKAGES is deprecated
 NAME = "ZenPacks.zenoss.LinuxMonitor"
-VERSION = "1.3.0.3"
+VERSION = "1.3.0.4"
 AUTHOR = "Zenoss, CERIT Scientific Cloud"
 LICENSE = ""
 NAMESPACE_PACKAGES = ['ZenPacks', 'ZenPacks.zenoss']

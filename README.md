@@ -17,6 +17,9 @@ Features:
  * tag (SKU Number)
  * rack chassis size
 * **NEW:** software RAID (md) monitoring
+* **NEW:** collect installed software
+ * Red Hat via `rpm'
+ * Debian and Ubuntu via `dpkg-query'
 * improved memory and swap utilization graphs
   * graph allocated space
   * nice event texts (e.g.: `memory threshold: 97.0% used (3.8GB free)`)
