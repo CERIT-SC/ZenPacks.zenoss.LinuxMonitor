@@ -57,7 +57,7 @@ class netstat_an(LinuxCommandPlugin):
                     continue
 
                 log.debug("Got %s %s port %s", addr, proto, port)
-                if addr == "127.0.0.1" or not port: # Can't monitor things we can't reach
+                if addr.find("127.")==0 or not port: # Can't monitor things we can't reach
                     continue
 
                 port = int(port)
