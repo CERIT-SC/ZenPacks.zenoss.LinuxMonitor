@@ -40,7 +40,7 @@ class ZenPack(ZenPackBase):
                                'zenoss.cmd.linux.cpuinfo', 
                                'zenoss.cmd.linux.memory', 
                                'community.cmd.linux.ifconfig', 
-                               'zenoss.cmd.linux.netstat_an', 
+                               'community.cmd.linux.netstat_an', 
                                'zenoss.cmd.linux.netstat_rn', 
                                'zenoss.cmd.linux.process',
                                'community.cmd.linux.df',

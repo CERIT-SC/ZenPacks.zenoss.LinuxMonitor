@@ -18,8 +18,8 @@ Features:
  * rack chassis size
 * **NEW:** software RAID (md) monitoring
 * **NEW:** collect installed software
- * Red Hat via `rpm'
- * Debian and Ubuntu via `dpkg-query'
+ * Red Hat via `rpm`
+ * Debian and Ubuntu via `dpkg-query`
 * improved memory and swap utilization graphs
   * graph allocated space
   * nice event texts (e.g.: `memory threshold: 97.0% used (3.8GB free)`)
@@ -34,6 +34,10 @@ Features:
   * all graph points are now stacked area
 * improved network interfaces monitoring
   * **NEW:** inherited community.cmd.linux.ifconfig supress error messages
+* improved IP service monitoring
+  * **NEW:** inherited community.cmd.linux.netstat_an
+  * do not model services listening on 127.* or ::1
+  * identify IPv6 protocols: tcp6, udp6
 
 ## Installation
 

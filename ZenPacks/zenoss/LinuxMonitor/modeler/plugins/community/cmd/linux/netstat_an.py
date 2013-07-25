@@ -51,7 +51,15 @@ class netstat_an(LinuxCommandPlugin):
                 if len(listar) == 2:
                     addr, port = listar
                 elif len(listar) == 4:
-                    addr = "0.0.0.0"
+                    # set tcp/udp to tcp6/udp6
+                    if proto in ("tcp","udp"):
+                        proto+='6'
+
+                    if ':'.join(listar[:3]) == '::1':
+                        addr = '127.0.0.1'
+                    else:
+                        addr = "0.0.0.0"
+
                     port = listar[-1]
                 else:
                     continue
