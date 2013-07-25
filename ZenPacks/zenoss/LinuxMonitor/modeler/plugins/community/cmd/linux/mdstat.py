@@ -6,10 +6,10 @@ class mdstat(LinuxCommandPlugin):
     modname = "ZenPacks.zenoss.LinuxMonitor.LogicalDiskMD"
     relname = "logicaldisks"
     compname = "hw"
-    command = '/bin/cat /proc/mdstat'
+    command = '/bin/cat /proc/mdstat 2>/dev/null'
 
     def process(self, device, results, log):
-        log.info('Collecting Linux software raids for device %s' % device.id)
+        log.info('Collecting logical disks (md) for device %s' % device.id)
         rm = self.relMap()
         for device in parse_mdstat(results):
             om = self.objectMap()
