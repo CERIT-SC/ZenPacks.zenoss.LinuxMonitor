@@ -42,6 +42,8 @@ Features:
   * **NEW:** inherited community.cmd.linux.netstat_an
   * do not model services listening on 127.* or ::1
   * identify IPv6 protocols: tcp6, udp6
+* improved process monitoring
+  * added graphs for process CPU time, RSS, count
 
 ## Installation
 
