@@ -17,6 +17,7 @@ Features:
  * tag (SKU Number)
  * rack chassis size
 * **NEW:** software RAID (md) monitoring
+ * I/O activity graph
 * **NEW:** collect installed software
  * Red Hat via `rpm`
  * Debian and Ubuntu via `dpkg-query`
