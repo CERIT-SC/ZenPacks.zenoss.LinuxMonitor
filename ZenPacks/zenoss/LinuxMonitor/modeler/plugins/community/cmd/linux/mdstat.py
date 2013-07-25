@@ -18,5 +18,6 @@ class mdstat(LinuxCommandPlugin):
             om.hostresindex = int(device['id'])
             om.diskType = device['type']
             om.size = device.get('blocks',0)
+            om.stripesize = device.get('stripesize',0)
             rm.append(om)
         return rm

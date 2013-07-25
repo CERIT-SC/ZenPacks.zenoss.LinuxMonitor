@@ -2,6 +2,14 @@ import re
 
 __all__ = ['parse_mdstat']
 
+MULTIPLIER = {
+    'KB' : 1024,
+    'K'  : 1024,
+    'MB' : 1024 * 1024,
+    'M'  : 1024 * 1024,
+    'B'  : 1
+}
+
 def parse_mdstat(results):
     linePattern = re.compile(r"\n\s*\n")
     mds = []
@@ -50,6 +58,17 @@ def parse_mdstat(results):
         matchBlcks=re.search(r"(?P<blocks>\d+) blocks",section)
         if matchBlcks:
             md['blocks']=long(matchBlcks.group('blocks'))*1024
+
+        # get chunk size:
+        #   bitmap: 1/1 pages [4KB], 65536KB chunk
+        # 996119552 blocks super 1.2 512k chunks
+        #                            ^^^^^^^^^^^^^
+        matchChunk=re.search(r"\s(?P<size>\d+)\s*(?P<unit>\w+) chunk",section)
+        if matchChunk:
+            multi=MULTIPLIER.get(matchChunk.group('unit').upper(),1)
+            md['stripesize'] = int(matchChunk.group('size')) * multi
+        else:
+            md['stripesize'] = 0
 
         # search for current task/progress:
         # [==============>......]  recovery = 72.0% (24162368/33553340) finish=3.4min speed=45458K/sec
