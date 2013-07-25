@@ -16,8 +16,10 @@ Features:
  * serial number
  * tag (SKU Number)
  * rack chassis size
-* **NEW:** software RAID (md) monitoring
- * I/O activity graph
+* **NEW:** software RAID (md) monitoring via `/proc/mdstat`
+ * detect RAID type, size, stripe size
+ * status monitoring
+ * I/O activity graph per device
 * **NEW:** collect installed software
  * Red Hat via `rpm`
  * Debian and Ubuntu via `dpkg-query`
@@ -35,6 +37,7 @@ Features:
   * all graph points are now stacked area
 * improved network interfaces monitoring
   * **NEW:** inherited community.cmd.linux.ifconfig supress error messages
+  * interface graphs: throughput, packets, errors
 * improved IP service monitoring
   * **NEW:** inherited community.cmd.linux.netstat_an
   * do not model services listening on 127.* or ::1
