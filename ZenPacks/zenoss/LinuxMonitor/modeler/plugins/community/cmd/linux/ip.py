@@ -74,7 +74,7 @@ class ip(LinuxCommandPlugin):
             # get MAC address and network type
             matchMac = self.mac.search(line)
             if matchMac:
-                iface.macaddress=matchMac.group("mac").upper()
+                iface.macaddress=matchMac.group("mac")
                 iface.type = matchMac.group("type")
                 if iface.type == "ether":
                   iface.type = "ethernetCsmacd"
