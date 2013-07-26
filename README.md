@@ -44,6 +44,8 @@ Features:
   * identify IPv6 protocols: tcp6, udp6
 * improved process monitoring
   * added graphs for process CPU time, RSS, count
+* improved processor modeling
+  * added shortened manufacturer
 
 ## Installation
 

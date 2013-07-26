@@ -16,6 +16,7 @@ information about the device's processor(s).
 import re
 
 from Products.DataCollector.plugins.CollectorPlugin import CommandPlugin
+from Products.DataCollector.plugins.DataMaps import MultiArgs
 
 class CpuinfoException(Exception):
     pass
@@ -35,8 +36,16 @@ class Cpuinfo(object):
         """
         if 'vendor_id' in self.cpuinfoDict and \
                 'model name' in self.cpuinfoDict:
-            productKey = ' '.join([self.cpuinfoDict['vendor_id'],
-                                   self.cpuinfoDict['model name']])
+
+            # fix vendor names
+            vendor=self.cpuinfoDict['vendor_id']
+            if re.search('Intel',vendor,re.I):
+                vendor='Intel'
+            elif re.search('AMD',vendor,re.I):
+                vendor='AMD'
+
+            productKey = MultiArgs(self.cpuinfoDict['model name'],vendor)
+
         elif 'cpu' in self.cpuinfoDict:
             productKey = self.cpuinfoDict['cpu']
         else:
@@ -96,7 +105,7 @@ class cpuinfo(CommandPlugin):
             cpuinfo = Cpuinfo(dict(pairs))
             om = self.objectMap()
             om.id = lines[0].strip()
-            om.socket = om.id
+            om.socket = int(om.id)
             def setClockspeed():
                 om.clockspeed = cpuinfo.getClockspeed()
             def setCachSizeL2():
