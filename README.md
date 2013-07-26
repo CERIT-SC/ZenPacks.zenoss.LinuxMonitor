@@ -36,7 +36,7 @@ Features:
   * show time spent in nice, I/O wait, steal, IRQ, soft IRQ
   * all graph points are now stacked area
 * improved network interfaces monitoring
-  * **NEW:** inherited community.cmd.linux.ifconfig supress error messages
+  * **NEW:** modeler community.cmd.linux.ip using `ip address show`
   * interface graphs: throughput, packets, errors
 * improved IP service monitoring
   * **NEW:** inherited community.cmd.linux.netstat_an
