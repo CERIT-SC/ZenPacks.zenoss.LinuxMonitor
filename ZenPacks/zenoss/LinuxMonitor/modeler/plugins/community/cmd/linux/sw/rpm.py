@@ -2,4 +2,4 @@ from ZenPacks.zenoss.LinuxMonitor.lib.LinuxSoftwareCommandPlugin import LinuxSof
 
 class rpm(LinuxSoftwareCommandPlugin):
     command = 'rpm -qa --qf \'%{NAME}_%{RELEASE}_%{ARCH}\\n\''
-    matchOS = '(RedHat|CentOS|Fedora)'
+    matchOS = '(RedHat|CentOS|Scientific|Fedora)'

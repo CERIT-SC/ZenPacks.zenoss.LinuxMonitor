@@ -13,5 +13,5 @@ class net_dev(ComponentCommandParser):
     scanners = [
         r':\s*'+
         r'\s+'.join([r'(?P<%s>\d+)' % (e) for e in elements])+
-	r'$'
+        r'$'
         ]
