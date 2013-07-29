@@ -1,1 +1,6 @@
 *.pyc
+*.pyo
+.svn
+*.egg-info
+build
+dist
