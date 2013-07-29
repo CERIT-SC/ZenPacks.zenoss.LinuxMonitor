@@ -73,6 +73,7 @@ def parse_mdstat(results):
         # search for current task/progress:
         # [==============>......]  recovery = 72.0% (24162368/33553340) finish=3.4min speed=45458K/sec
         #                          ^^^^^^^^   ^^^^^
+        # resync=DELAYED
         # resync=PENDING
         # ^^^^^  ^^^^^^^
         matchTask=re.search(r"\s(?P<task>recovery|resync|check)\s*=\s*(?P<progress>[^ ]+)",section)
@@ -104,10 +105,10 @@ def parse_mdstat(results):
                 'recovery': (14,15) }
 
             if md.get('task'):
-                if re.match('pending',md['progress'],re.I):
-                    status=taskMap.get(md['task'],(16,16))[0]
-                else:
+                if re.match('\d+(\.\d+)?%',md['progress']):
                     status=taskMap.get(md['task'],(16,16))[1]
+                else:
+                    status=taskMap.get(md['task'],(16,16))[0]
 
         elif re.match('inactive',md['md_status'],re.I):
             status=3
