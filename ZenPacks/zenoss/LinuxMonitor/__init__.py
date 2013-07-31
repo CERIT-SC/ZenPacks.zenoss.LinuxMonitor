@@ -46,6 +46,7 @@ class ZenPack(ZenPackBase):
                                'community.cmd.linux.df',
                                'community.cmd.linux.lsb_release',
                                'community.cmd.linux.dmidecode',
+                               'community.cmd.linux.sys_block',
                                'community.cmd.linux.mdstat',
                                'community.cmd.linux.sw.dpkg',
                                'community.cmd.linux.sw.rpm' ] ) 

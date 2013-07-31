@@ -20,6 +20,9 @@ Features:
  * detect RAID type, size, stripe size
  * status monitoring
  * I/O activity graph per device
+* **NEW:** hard disks modeling via `/sys/block/`
+ * detect vendor and type only
+ * I/O activity graph per device
 * **NEW:** collect installed software
  * Red Hat via `rpm`
  * Debian and Ubuntu via `dpkg-query`
