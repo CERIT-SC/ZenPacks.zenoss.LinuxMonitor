@@ -27,7 +27,16 @@ class ZenPack(ZenPackBase):
         ('zThresholdFilesystemLow', 90, 'int'),
         ('zThresholdFilesystemCrit', 99, 'int'),
         ('zThresholdLoadOffset', 1.3, 'float'),
-        ]
+        ('zLinuxExpansionCardMapMatchIgnoreTypes',[
+            'bridge$',
+            'smbus',
+            'system peripheral',
+            'performance counters',
+            '(signal processing|usb) controller',
+            'ram memory',
+            '^pic$'
+        ],'lines'),
+    ]
     
     def install(self, app):
         """
@@ -48,6 +57,7 @@ class ZenPack(ZenPackBase):
                                'community.cmd.linux.dmidecode',
                                'community.cmd.linux.sys_block',
                                'community.cmd.linux.mdstat',
+                               'community.cmd.linux.lspci',
                                'community.cmd.linux.sw.dpkg',
                                'community.cmd.linux.sw.rpm' ] ) 
         
