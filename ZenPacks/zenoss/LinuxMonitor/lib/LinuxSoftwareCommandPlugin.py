@@ -5,7 +5,7 @@ import re
 
 class LinuxSoftwareCommandPlugin(SoftwareCommandPlugin):
     matchOS = ''
-    vendor = 'Unknown Linux'
+    vendor = 'Linux'
 
     def __init__(self):
         super(LinuxSoftwareCommandPlugin,self).__init__(self.parse)
