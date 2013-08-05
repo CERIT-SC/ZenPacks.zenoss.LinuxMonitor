@@ -1,18 +1,12 @@
-from Products.ZenRRD.CommandParser import CommandParser
-from Products.ZenUtils.Utils import prepId as globalPrepId
+import logging
+
+from Products.ZenRRD.ComponentCommandParser import ComponentCommandParser
 from ZenPacks.zenoss.LinuxMonitor.lib.parse import parse_mdstat
+from pprint import pformat
 
-class mdstat(CommandParser):
-    componentScanValue = 'id'
+log = logging.getLogger("zen.ComponentCommandParser")
 
-    def prepId(self, id, subchar='_'):
-        return globalPrepId(id, subchar)
-
-    def dataForParser(self, context, dp):
-        # This runs in the zenhub service, so it has access to the actual ZODB object
-        print "Tady!?????"
-        return dict(componentScanValue = getattr(context, self.componentScanValue))
-
+class mdstat(ComponentCommandParser):
     def processResults(self, cmd, result):
         """
         Process the results of "cat /proc/mdstat".
@@ -33,5 +27,5 @@ class mdstat(CommandParser):
                         if value in ('-',''): value = 0
                         result.values.append((dp, float(value)))
 
-        print result
+        log.debug(pformat(result))
         return result

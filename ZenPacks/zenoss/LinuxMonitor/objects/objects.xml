@@ -1981,8 +1981,8 @@ AVERAGE
 </object>
 </tomanycont>
 </object>
-<!-- ('', 'zport', 'dmd', 'Devices', 'Server', 'SSH', 'Linux', 'rrdTemplates', 'LogicalDiskMD') -->
-<object id='/zport/dmd/Devices/Server/SSH/Linux/rrdTemplates/LogicalDiskMD' module='Products.ZenModel.RRDTemplate' class='RRDTemplate'>
+<!-- ('', 'zport', 'dmd', 'Devices', 'Server', 'SSH', 'Linux', 'rrdTemplates', 'LinuxLogicalDiskMD') -->
+<object id='/zport/dmd/Devices/Server/SSH/Linux/rrdTemplates/LinuxLogicalDiskMD' module='Products.ZenModel.RRDTemplate' class='RRDTemplate'>
 <property id='zendoc' type='string'>
 Linux software RAID (md) logical disk
 </property>
@@ -1990,7 +1990,7 @@ Linux software RAID (md) logical disk
 Linux software RAID (md) logical disk
 </property>
 <property type="string" id="targetPythonClass" mode="w" >
-ZenPacks.zenoss.LinuxMonitor.LogicalDiskMD
+ZenPacks.zenoss.LinuxMonitor.LinuxLogicalDiskMD
 </property>
 <tomanycont id='datasources'>
 <object id='diskstats' module='Products.ZenModel.BasicDataSource' class='BasicDataSource'>
@@ -2075,7 +2075,7 @@ True
 </object>
 </tomanycont>
 <tomanycont id='thresholds'>
-<object id='Status' module='ZenPacks.community.deviceAdvDetail.thresholds.StatusThreshold' class='StatusThreshold'>
+<object id='status' module='ZenPacks.community.deviceAdvDetail.thresholds.StatusThreshold' class='StatusThreshold'>
 <property type="string" id="eventClass" mode="w" >
 /Change/Set/Status
 </property>

@@ -3,7 +3,7 @@ from ZenPacks.zenoss.LinuxMonitor.lib.parse import parse_mdstat
 
 class mdstat(LinuxCommandPlugin):
     maptype = "LogicalDiskMap"
-    modname = "ZenPacks.zenoss.LinuxMonitor.LogicalDiskMD"
+    modname = "ZenPacks.zenoss.LinuxMonitor.LinuxLogicalDiskMD"
     relname = "logicaldisks"
     compname = "hw"
     command = '/bin/cat /proc/mdstat 2>/dev/null'

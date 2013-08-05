@@ -98,17 +98,22 @@ def parse_mdstat(results):
             else:
                 status=2 #online
 
-            # value: (pending state, currently doing state)
+            # task status: (pending, delayed, unknown, currently)
             taskMap = {
-                'resync':   (10,11),
-                'check':    (12,13),
-                'recovery': (14,15) }
+                'resync':   (10,11,12,13),
+                'check':    (15,16,17,18),
+                'recovery': (20,21,22,23) }
 
             if md.get('task'):
-                if re.match('\d+(\.\d+)?%',md['progress']):
-                    status=taskMap.get(md['task'],(16,16))[1]
-                else:
-                    status=taskMap.get(md['task'],(16,16))[0]
+                mapIdx = 2
+                if 'PENDING' in md['progress']:
+                    mapIdx = 0
+                elif 'DELAYED' in md['progress']:
+                    mapIdx = 1
+                elif re.match('\d+(\.\d+)?%',md['progress']):
+                    mapIdx = 3
+
+                status=taskMap.get(md['task'],(30,30,30,30))[mapIdx]
 
         elif re.match('inactive',md['md_status'],re.I):
             status=3
