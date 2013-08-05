@@ -75,6 +75,9 @@ No prebuilt packages yet.
 ## Screenshots
 
 * Overview
+
+![Overview](https://raw.github.com/CERIT-SC/ZenPacks.zenoss.LinuxMonitor/master/docs/overview.png)
+
 * Performance graphs
 * Hard Disks
 * Logical Disks
