@@ -5,6 +5,8 @@
 This is a [Zenoss](http://www.zenoss.com) monitoring system extension (ZenPack)
 for advanced Linux monitoring **based on original Zenoss Core's**
 [LinuxMonitor](https://github.com/zenoss/ZenPacks.zenoss.LinuxMonitor) plugin.
+This module is a drop-in replacement of existing module by Zenoss,
+*original module must be uninstalled first*.
 
 Features:
 
@@ -20,12 +22,14 @@ Features:
  * detect RAID type, size, stripe size
  * status monitoring
  * I/O activity graph per device
-* **NEW:** hard disks modeling via `/sys/block/`
+* **NEW:** very simple hard disks modeling via `/sys/block/`
  * detect vendor and type only
  * I/O activity graph per device
 * **NEW:** collect installed software
  * Red Hat via `rpm`
  * Debian and Ubuntu via `dpkg-query`
+* **NEW:** modeler community.cmd.linux.lspci to get expansion cards
+ * configurable types to ignore via `zLinuxExpansionCardMapMatchIgnoreTypes`
 * improved memory and swap utilization graphs
   * graph allocated space
   * nice event texts (e.g.: `memory threshold: 97.0% used (3.8GB free)`)
@@ -55,6 +59,8 @@ Features:
 Requirements:
 
 * Zenoss 3.2 or later
+* [Advanced Device Details ZenPack](http://wiki.zenoss.org/ZenPack:Advanced_Device_Details)
+* uninstall existing Zenoss Core's [LinuxMonitor](https://github.com/zenoss/ZenPacks.zenoss.LinuxMonitor)
 
 ### Normal Installation (packaged egg)
 
@@ -65,3 +71,19 @@ No prebuilt packages yet.
     git clone git://github.com/CERIT-SC/ZenPacks.zenoss.LinuxMonitor.git
     zenpack --link --install ZenPacks.zenoss.LinuxMonitor
     zenoss restart
+
+## Screenshots
+
+* Overview
+* Performance graphs
+* Hard Disks
+* Logical Disks
+* Interfaces
+* OS Processes
+* File Systems
+* Processors
+* Software
+
+## Bug reports
+
+Please report your problems or feature requests via [GitHub issues tracker](https://github.com/CERIT-SC/ZenPacks.zenoss.LinuxMonitor/issues)
