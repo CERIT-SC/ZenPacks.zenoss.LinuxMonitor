@@ -20,6 +20,10 @@ from Products.CMFCore.DirectoryView import registerDirectory
 if os.path.isdir(skinsDir):
     registerDirectory(skinsDir, globals())
 
+# fix zHardDiskMapMatch
+ZHD_OLD = '^[hs]d[a-z]\d+$|c\d+t\d+d\d+s\d+$|^cciss\/c\dd\dp\d$|^dm\-\d$'
+ZHD_NEW = '^[hsv]d[a-z]+$|^xvd[a-z]+$|c\d+t\d+d\d+s\d+$|^cciss\/c\dd\d$'
+
 class ZenPack(ZenPackBase):
     packZProperties = [
         ('zThresholdMemoryCrit', 95, 'int'),
@@ -62,6 +66,12 @@ class ZenPack(ZenPackBase):
                                'community.cmd.linux.sw.rpm' ] ) 
         
         linux.register_devtype('Linux Server', 'SSH')
+
+        # fix zHardDiskMapMatch for /Server/SSH/Linux
+        hdProp = linux.getProperty('zHardDiskMapMatch')
+        if not hdProp or hdProp == ZHD_OLD:
+            linux.setZenProperty('zHardDiskMapMatch', ZHD_NEW)
+
         ZenPackBase.install(self, app)
                                    
     def remove(self, app, leaveObjects=False):
