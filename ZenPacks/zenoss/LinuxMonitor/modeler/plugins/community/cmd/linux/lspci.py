@@ -9,7 +9,7 @@ class lspci(LinuxCommandPlugin):
     modname = "ZenPacks.zenoss.LinuxMonitor.LinuxExpansionCard"
     relname = "cards"
     compname = "hw"
-    command = 'PATH="$PATH:/sbin:/usr/sbin" lspci -vmm'
+    command = 'PATH="$PATH:/sbin:/usr/sbin" lspci -vmmk'
     deviceProperties = LinuxCommandPlugin.deviceProperties + (
       'zLinuxExpansionCardMapMatchIgnoreTypes', )
 
@@ -18,8 +18,6 @@ class lspci(LinuxCommandPlugin):
     attributeMap = {
         'Slot':     'slot',
         'Class':    'type',
-        'Driver':   'driver',
-        'Module':   'module',
         'SVendor':  'subVendor',
         'SDevice':  'subModel',
         'Rev':      'revision',
@@ -32,7 +30,7 @@ class lspci(LinuxCommandPlugin):
         rm = self.relMap()
 
         for section in self.sectionPattern.split(results.strip()):
-            om = self.objectMap({'type':'Unknown'})
+            om = self.objectMap({'type':'Unknown', 'driver': [], 'module': []})
             vendor, model = ('Unknown', 'Unknown')
 
             for l in section.splitlines():
@@ -47,6 +45,11 @@ class lspci(LinuxCommandPlugin):
                         vendor = match.group('value')
                     elif match.group('tag') == 'Device':
                         model = match.group('value')
+                    elif match.group('tag') in ('Driver','Module'):
+                        omAttr = match.group('tag').lower()
+                        v=getattr(om, omAttr)
+                        v.append(match.group('value'))
+                        setattr(om, omAttr, v)
 
             om.id = self.prepId('pci_%s' % (om.slot,))
             om.title = "%s: %s %s" % (om.type, vendor, model)

@@ -8,11 +8,11 @@ class LinuxExpansionCard(ExpansionCard):
     type = ''
     subVendor = ''
     subModel = ''
-    physicalSlot = ''
-    driver = ''
-    module = ''
+    physicalSlot = None
     revision = ''
     progIface = ''
+    driver = []
+    module = []
 
     monitor = False
 
@@ -21,8 +21,8 @@ class LinuxExpansionCard(ExpansionCard):
         {'id':'subVendor',    'type':'string', 'mode':'w'},
         {'id':'subModel',     'type':'string', 'mode':'w'},
         {'id':'physicalSlot', 'type':'int',    'mode':'w'},
-        {'id':'driver',       'type':'string', 'mode':'w'},
-        {'id':'module',       'type':'string', 'mode':'w'},
+        {'id':'driver',       'type':'lines',  'mode':'w'},
+        {'id':'module',       'type':'lines',  'mode':'w'},
         {'id':'revision',     'type':'string', 'mode':'w'},
         {'id':'progIface',    'type':'string', 'mode':'w'},
     )
@@ -40,11 +40,6 @@ class LinuxExpansionCard(ExpansionCard):
             'name'          : 'Status',
             'action'        : 'viewLinuxExpansionCard',
             'permissions'   : (ZEN_VIEW, ),
-        },{
-            'id'            : 'perfConf',
-            'name'          : 'Template',
-            'action'        : 'objTemplates',
-            'permissions'   : (ZEN_CHANGE_DEVICE, ),
         },),
     },)
 

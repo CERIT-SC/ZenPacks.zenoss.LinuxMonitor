@@ -38,6 +38,7 @@ class ZenPack(ZenPackBase):
             'performance counters',
             '(signal processing|usb) controller',
             'ram memory',
+            '^unknown$',
             '^pic$'
         ],'lines'),
     ]
